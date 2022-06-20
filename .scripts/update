@@ -11,7 +11,3 @@ sudo snap refresh
 
 # flatpak
 sudo flatpak update -y
-
-# gits
-ls $HOME/tools/ | xargs -P10 -I{} git -C $HOME/tools/{} pull
-

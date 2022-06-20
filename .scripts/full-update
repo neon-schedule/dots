@@ -9,3 +9,7 @@ python3 -m pip install -r <(pip freeze) --upgrade
 
 # go bins
 go get -u all
+
+# update gits
+ls $HOME/tools/ | xargs -P10 -I{} git -C $HOME/tools/{} pull
+
