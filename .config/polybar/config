@@ -1,0 +1,238 @@
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[settings]
+screenchange-reload = true
+
+[colors]
+background = #00282c34
+background-alt = #302D41
+foreground = #dcdfe4
+foreground-alt = #dcdfe4
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+red = #F28FAD
+orange = #F8BD96
+yellow = #FAE3B0
+green = #ABE9B3
+blue = #96CDFB
+purple = #DDB6F2
+
+[bar/bar]
+monitor = ${env:MONITOR:}
+width = 100%
+height = 27
+;offset-x = 1%
+;offset-y = 1%
+radius = 6.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "SpaceMono Nerd Font:style=Regular:size=14;1"
+font-1 = "Noto Color Emoji:scale=7;2"
+
+modules-left = i3
+modules-center = todo vpn weather
+modules-right = picture pulseaudio backlight battery date
+tray-position = right
+tray-background = ${colors.background-alt}
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${colors.background}
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.foreground}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-background = ${colors.background-alt}
+label-unfocused-foreground = #6E6C7E
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.background-alt}
+label-urgent-underline = ${colors.red}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+label-separator = " " 
+
+[module/picture]
+type = custom/script
+format-underline = ${colors.red}
+format-background = ${colors.background-alt}
+exec-if = ls /tmp/vid-*
+;exec = if ls -d /tmp/vid-* 1> /dev/null 2>&1; then echo " ; "; fi
+interval = 1
+click-left = feh -x -Z -q /tmp/vid-*
+
+[module/theme]
+type = custom/script
+exec = echo AAAA
+click-left = ~/.scripts/polybar/theme
+format-underline = ${colors.red}
+format-background = ${colors.background-alt}
+label = " 盛"
+format = " <label> "
+
+[module/todo]
+type = custom/text
+content = ✅
+click-left = alacritty -e /bin/zsh -c 'i3-msg -q floating enable;nvim ~/Nextcloud/todo.md'
+
+[module/vpn]
+type = custom/ipc
+hook-0 = echo "🌈"
+hook-1 = ~/.scripts/polybar/vpn
+click-left = "#vpn.hook.1"
+initial = 1
+tail = true
+
+;type = custom/script
+;tail = true
+;exec = echo "🌈"
+;click-left = ~/.scripts/polybar/vpn
+
+[module/weather]
+type = custom/script
+exec = "curl -s wttr.in/?format=1"
+format-background = ${colors.background-alt}
+format-foreground = ${colors.purple}
+format-padding = 1
+click-left = /bin/bash -c 'curl -s wttr.in/.png | feh -x -Z -'
+interval = 300
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+click-left = alacritty -e /bin/zsh -c 'i3-msg -q floating enable;pulsemixer'
+
+label-volume = %percentage%
+format-volume = "%{A1:~/.scripts/polybar/mixer:}<ramp-volume> <label-volume>%{A}"
+format-volume-underline = ${colors.orange}
+format-volume-background = ${colors.background-alt}
+format-volume-foreground = ${colors.orange}
+format-volume-padding = 1
+
+format-muted-underline = ${colors.orange}
+format-muted-background = ${colors.background-alt}
+format-muted-foreground = ${colors.orange}
+format-muted-padding = 1
+
+label-muted = "%{A1:~/.scripts/polybar/mixer:}ﱝ %percentage%%{A}"
+
+ramp-volume-0 = 
+ramp-volume-1 = 墳
+ramp-volume-2 = 
+
+ramp-headphones-0 = 
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+format = <label>
+label = " %percentage%" 
+format-underline = #FAE3B0
+format-background = ${colors.background-alt}
+format-foreground = #FAE3B0
+format-padding = 1
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+;exec-if = ls /sys/class/power_supply | grep -q BAT
+click-left = alacritty -e /bin/zsh -c 'i3-msg -q floating enable;htop'
+
+label-charging = %percentage%
+label-charging-foreground = ${colors.green}
+format-charging-background = ${colors.background-alt}
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = ${colors.green}
+format-charging-padding = 1
+
+format-full = 
+format-full-foreground = ${colors.green}
+format-full-underline = ${colors.green}
+format-full-background = ${colors.background-alt}
+format-full-padding = 1
+
+label-discharging = %percentage%
+label-discharging-foreground = ${colors.green}
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-background = ${colors.background-alt}
+format-discharging-underline = ${colors.green}
+format-discharging-padding = 1
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-0-foreground = ${colors.alert}
+ramp-capacity-foreground = ${colors.green}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animaiton-charging-padding = 1
+animation-charging-foreground = ${colors.green}
+animation-charging-framerate = 750
+
+[module/date]
+type = internal/date
+interval = 5
+
+date-alt = "%a, %b %e - %R"
+time = "%H:%M"
+
+format-background = ${colors.background-alt}
+format-foreground = ${colors.blue}
+format-underline = ${colors.blue}
+format-padding = 1
+
+label = "%time%%date%"
