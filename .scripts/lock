@@ -1,0 +1,5 @@
+#!/bin/bash
+pkill -u "$USER" -USR1 dunst
+i3lock -n -u -t -e -i ~/Pictures/walls/$(ls ~/Pictures/walls/ | shuf -n1); killall -SIGUSR2 dunst
+pkill -u "$USER" -USR2 dunst
+

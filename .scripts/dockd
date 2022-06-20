@@ -1,0 +1,11 @@
+#!/bin/bash
+
+check_docked=$(lsusb | grep -i doc)
+
+if [ $? -eq 0 ] ; then
+	bash /home/tbu/.screenlayout/home_docked.sh
+else
+	bash /home/tbu/.screenlayout/mobile.sh
+fi
+
+feh --bg-fill ~/Pictures/walls/$(ls ~/Pictures/walls/ | shuf -n1)

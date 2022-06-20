@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# make sure dependencies are installed
+sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
+
+# fix libjsoncpp error
+sudo ln -s /usr/lib/x86_64-linux-gnu/libjsoncpp.so.25 /usr/lib/x86_64-linux-gnu/libjsoncpp.so.24
+
+cd ~/tools/polybar
+git stash
+git pull
+rm -rf build
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+sudo make install
+killall -q polybar
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+cp bin/polybar ~/.local/bin
+bash ~/.scripts/polybar/launch &
+

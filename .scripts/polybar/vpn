@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#check="$(ssh -q 0wn exit)"
+check="$(ssh -o BatchMode=yes -o ConnectTimeout=5 0wn echo ok 2>/dev/null)"
+
+#if ps ax | grep -v grep | grep openfortivpn 2>/dev/null; then
+if [[ $check == "ok" ]]; then
+	sudo /usr/bin/killall -9 openfortivpn
+	echo "🔓"
+else
+	sudo /usr/bin/openfortivpn
+	echo "🔐"
+fi
+
+exit 0

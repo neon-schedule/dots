@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Terminate already running bar instances
+#kill -9 $(pgrep -f 'polybar') >/dev/null 2>&1
+killall -9 polybar
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+
+if [[ $(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l) -eq 5 ]]; then
+	for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+		#if [[ $m = "DP-2-3" ]]; then
+		#	polybar -r vertical &	
+		#else
+		MONITOR=$m polybar -r bar &
+		#fi
+	done
+else
+polybar -r bar -c ~/.config/polybar/config &
+fi
+
+$(~/.scripts/dockd)
+
+# launch default bar
+#polybar -r bar &

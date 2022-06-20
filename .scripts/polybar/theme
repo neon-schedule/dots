@@ -1,0 +1,45 @@
+#!/bin/bash
+
+D_ALACRITTY=$HOME/.config/alacritty/alacritty.yml
+D_NVIM=$HOME/.config/nvim/init.vim
+
+schema_dark="dark"
+schema_light="light"
+
+load_dark () {
+	# alacritty
+	sed -i '$ d' $D_ALACRITTY ; echo "colors: *$schema_dark" >> $D_ALACRITTY
+
+  # nvim
+  sed -i '$ d' $D_NVIM ; echo "set background=$schema_dark" >> $D_NVIM
+
+  # polybar
+  #~/.config/polybar/launch.sh dark &
+  #polybar-msg cmd quit
+  #sleep 5
+  #polybar -r bar -c ~/.config/polybar/config.dark
+}
+
+load_light () {
+  # alacritty
+  sed -i '$ d' $D_ALACRITTY ; echo "colors: *$schema_light" >> $D_ALACRITTY
+
+  # nvim
+  sed -i '$ d' $D_NVIM ; echo "set background=$schema_light" >> $D_NVIM
+
+  # polybar
+  #~/.config/polybar/launch.sh light &
+}
+
+if [[ $(tail -1 $HOME/.config/alacritty/alacritty.yml | grep -c dark) -eq 0 ]]; then
+  load_dark
+else
+  load_light
+fi
+
+for path in $(nvr --nostart --serverlist)
+do
+	nvr --nostart --servername $path -cc 'so $HOME/.config/nvim/init.vim'
+done
+
+exit 0
