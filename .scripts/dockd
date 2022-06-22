@@ -4,8 +4,10 @@ check_docked=$(lsusb | grep -i doc)
 
 if [ $? -eq 0 ] ; then
 	bash /home/tbu/.screenlayout/home_docked.sh
+	sed -i 's/size: 11/size: 15/g' $HOME/.config/alacritty/alacritty.yml
 else
 	bash /home/tbu/.screenlayout/mobile.sh
+	sed -i 's/size: 15/size: 11/g' $HOME/.config/alacritty/alacritty.yml
 fi
 
 feh --bg-fill ~/Pictures/walls/$(ls ~/Pictures/walls/ | shuf -n1)
