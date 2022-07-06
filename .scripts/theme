@@ -1,0 +1,30 @@
+#!/bin/bash
+
+dark () {
+	# set gtk theme
+	sed -i 's/gtk-theme-name=Breeze/gtk-theme-name=Breeze-Dark/g' $HOME/.config/gtk-3.0/settings.ini
+
+	# set rofi theme
+	sed -i 's/light/dark/g' $HOME/.config/rofi/config.rasi
+}
+
+light () { 
+	# set gtk theme
+	sed -i 's/gtk-theme-name=Breeze-Dark/gtk-theme-name=Breeze/g' $HOME/.config/gtk-3.0/settings.ini
+
+	# set rofi theme
+	sed -i 's/dark/theme/g' $HOME/.config/rofi/config.rasi
+}
+
+# load theme
+light
+
+# check if firefox is running
+f_run=$(ps -e | grep "firefox")
+if [ $? -eq 0 ] ; then
+	killall firefox; i3-msg 'workspace 2; exec firefox'
+fi
+
+
+
+

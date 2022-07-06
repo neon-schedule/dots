@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/tools/radare2
+git stash
+sys/install.sh
