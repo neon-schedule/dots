@@ -10,4 +10,4 @@ sudo apt autoremove -y
 sudo snap refresh
 
 # flatpak
-sudo flatpak update -y
+flatpak update -y

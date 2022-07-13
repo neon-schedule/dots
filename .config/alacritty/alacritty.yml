@@ -7,7 +7,8 @@ selection:
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: true
 
-window.opacity: 0.8
+window:
+  opacity: 0.9
 
 font:
   normal:
@@ -144,4 +145,4 @@ schemes:
       cyan: '0x56b6c2'
       white: '0xdcdfe4'
 
-colors: *dark
+colors: *light

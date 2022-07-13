@@ -6,6 +6,12 @@ dark () {
 
 	# set rofi theme
 	sed -i 's/light/dark/g' $HOME/.config/rofi/config.rasi
+
+	# set terminal theme
+	sed -i 's/*light/*dark/g' $HOME/.config/alacritty/alacritty.yml
+
+	#set batcat theme
+	sed -i 's/gruvbox-light/gruvbox-dark/g' $HOME/.config/bat/config
 }
 
 light () { 
@@ -13,11 +19,21 @@ light () {
 	sed -i 's/gtk-theme-name=Breeze-Dark/gtk-theme-name=Breeze/g' $HOME/.config/gtk-3.0/settings.ini
 
 	# set rofi theme
-	sed -i 's/dark/theme/g' $HOME/.config/rofi/config.rasi
+	sed -i 's/dark/light/g' $HOME/.config/rofi/config.rasi
+	
+	# set terminal theme
+	sed -i 's/*dark/*light/g' $HOME/.config/alacritty/alacritty.yml
+
+	# set batcat theme
+	sed -i 's/gruvbox-dark/gruvbox-light/g' $HOME/.config/bat/config
 }
 
 # load theme
-light
+if grep -q -i "gtk-theme-name=Breeze-Dark" $HOME/.config/gtk-3.0/settings.ini; then
+	light
+else
+	dark
+fi
 
 # check if firefox is running
 f_run=$(ps -e | grep "firefox")
