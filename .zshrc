@@ -29,6 +29,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias vim="nvim"
 alias c="xclip -selection c"
+alias ci="xclip -selection clipboard -t image/png -in"
 alias update="~/.scripts/update"
 alias full-update="~/.scripts/full-update"
 alias cat="batcat -pp"
