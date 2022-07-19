@@ -38,7 +38,7 @@ let g:gruvbox_contrast_light = 'medium'
 " https://github.com/morhetz/gruvbox/wiki/Configuration#ggruvbox_contrast_dark
 colorscheme gruvbox
 
-set background=light
+set background=dark
 
 " set transparency
 " highlight Normal guibg=none

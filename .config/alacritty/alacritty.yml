@@ -27,7 +27,7 @@ font:
     family: Fira Code Nerd Font
     style: Bold Italic
 
-  size: 11
+  size: 15
 
 
 ##################
@@ -145,4 +145,4 @@ schemes:
       cyan: '0x56b6c2'
       white: '0xdcdfe4'
 
-colors: *light
+colors: *dark

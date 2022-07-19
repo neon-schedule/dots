@@ -17,7 +17,7 @@ if [[ $(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l) -eq 5 ]]; th
 		#fi
 	done
 else
-polybar -r bar -c ~/.config/polybar/config &
+polybar -r bar -c ~/.config/polybar/config.ini &
 fi
 
 $(~/.scripts/dockd)
