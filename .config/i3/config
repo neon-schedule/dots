@@ -14,6 +14,7 @@ for_window [class="feh"] floating enable
 # start programs
 exec_always --no-startup-id "~/.scripts/polybar/launch &"
 exec_always --no-startup-id nm-applet
+exec_always --no-startuo-id blueman-applet
 exec_always --no-startup-id flameshot
 exec --no-startup-id ~/.local/bin/nextcloud
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
